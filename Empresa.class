@@ -1,0 +1,95 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
+import java.awt.Component;
+import javax.swing.JOptionPane;
+
+class Empresa {
+    private String nombre;
+    private String nit;
+    private Empleado[] empleados;
+    private int contadorEmpleados;
+
+    public Empresa(String nombre, String nit) {
+        this.nombre = nombre;
+        this.nit = nit;
+        this.empleados = new Empleado[50];
+        this.contadorEmpleados = 0;
+    }
+
+    public static double obtenerSalarioBase(String cargo) {
+        switch (cargo) {
+            case "Gerente" -> {
+                return (double)5000.0F;
+            }
+            case "Supervisor" -> {
+                return (double)3000.0F;
+            }
+            case "Operario" -> {
+                return (double)1500.0F;
+            }
+            default -> {
+                return (double)0.0F;
+            }
+        }
+    }
+
+    public boolean crearEmpleado(Empleado nuevo) {
+        if (this.contadorEmpleados >= 50) {
+            return false;
+        } else {
+            for(int i = 0; i < this.contadorEmpleados; ++i) {
+                if (this.empleados[i].getCedula().equals(nuevo.getCedula())) {
+                    return false;
+                }
+            }
+
+            this.empleados[this.contadorEmpleados++] = nuevo;
+            return true;
+        }
+    }
+
+    public void mostrarEmpleados() {
+        StringBuilder lista = new StringBuilder("Lista de Empleados:\n");
+
+        for(int i = 0; i < this.contadorEmpleados; ++i) {
+            lista.append(this.empleados[i].toString()).append("\n");
+        }
+
+        JOptionPane.showMessageDialog((Component)null, lista.toString());
+    }
+
+    public void buscarEmpleado(String cedula) {
+        for(int i = 0; i < this.contadorEmpleados; ++i) {
+            if (this.empleados[i].getCedula().equals(cedula)) {
+                JOptionPane.showMessageDialog((Component)null, this.empleados[i].toString());
+                return;
+            }
+        }
+
+        JOptionPane.showMessageDialog((Component)null, "Empleado no encontrado.");
+    }
+
+    public void calcularNomina() {
+        double total = (double)0.0F;
+
+        for(int i = 0; i < this.contadorEmpleados; ++i) {
+            double aumento = (double)0.0F;
+            int años = this.empleados[i].getTiempoEmpresa();
+            if (años > 10) {
+                aumento = 0.15;
+            } else if (años > 5) {
+                aumento = 0.1;
+            } else if (años > 3) {
+                aumento = 0.05;
+            }
+
+            double nuevoSalario = this.empleados[i].getSalario() * ((double)1.0F + aumento);
+            total += nuevoSalario;
+        }
+
+        JOptionPane.showMessageDialog((Component)null, "Nómina total: " + total);
+    }
+}
