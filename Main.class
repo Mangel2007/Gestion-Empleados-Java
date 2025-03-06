@@ -1,0 +1,46 @@
+
+import java.awt.Component;
+import javax.swing.Icon;
+import javax.swing.JOptionPane;
+
+public class Main {
+    public Main() {
+    }
+
+    public static void main(String[] args) {
+        Empresa empresa = new Empresa("TechCorp", "123456789");
+
+        while(true) {
+            String opcionStr = JOptionPane.showInputDialog((Component)null, "Menú:\n1. Registrar empleado\n2. Mostrar empleados\n3. Buscar empleado por cédula\n4. Calcular salarios\n5. Salir", "Sistema de Gestión", 3);
+            int opcion = Integer.parseInt(opcionStr);
+            if (opcion == 1) {
+                String nombre = JOptionPane.showInputDialog("Nombre:");
+                String cedula = JOptionPane.showInputDialog("Cédula:");
+                String[] cargos = new String[]{"Gerente", "Supervisor", "Operario"};
+                String cargo = (String)JOptionPane.showInputDialog((Component)null, "Seleccione el cargo:", "Cargo", 3, (Icon)null, cargos, cargos[0]);
+                int tiempoEmpresa = Integer.parseInt(JOptionPane.showInputDialog("Años en la empresa:"));
+                double salario = Empresa.obtenerSalarioBase(cargo);
+                Empleado nuevoEmpleado = new Empleado(nombre, cedula, cargo, tiempoEmpresa, salario);
+                if (empresa.crearEmpleado(nuevoEmpleado)) {
+                    JOptionPane.showMessageDialog((Component)null, "Empleado agregado exitosamente.");
+                } else {
+                    JOptionPane.showMessageDialog((Component)null, "No se pudo agregar el empleado.");
+                }
+            } else if (opcion == 2) {
+                empresa.mostrarEmpleados();
+            } else if (opcion == 3) {
+                String cedulaBuscar = JOptionPane.showInputDialog("Ingrese la cédula del empleado:");
+                empresa.buscarEmpleado(cedulaBuscar);
+            } else if (opcion == 4) {
+                empresa.calcularNomina();
+            } else {
+                if (opcion == 5) {
+                    JOptionPane.showMessageDialog((Component)null, "Saliendo del sistema...");
+                    return;
+                }
+
+                JOptionPane.showMessageDialog((Component)null, "Opción inválida.");
+            }
+        }
+    }
+}
