@@ -1,0 +1,35 @@
+class Empleado {
+    private String nombre;
+    private String cedula;
+    private String cargo;
+    private int tiempoEmpresa;
+    private double salario;
+
+    public Empleado(String nombre, String cedula, String cargo, int tiempoEmpresa, double salario) {
+        this.nombre = nombre;
+        this.cedula = cedula;
+        this.cargo = cargo;
+        this.tiempoEmpresa = tiempoEmpresa;
+        this.salario = salario;
+    }
+
+    public String getCedula() {
+        return this.cedula;
+    }
+
+    public String getCargo() {
+        return this.cargo;
+    }
+
+    public int getTiempoEmpresa() {
+        return this.tiempoEmpresa;
+    }
+
+    public double getSalario() {
+        return this.salario;
+    }
+
+    public String toString() {
+        return "Nombre: " + this.nombre + ", Cédula: " + this.cedula + ", Cargo: " + this.cargo + ", Años: " + this.tiempoEmpresa + ", Salario: " + this.salario;
+    }
+}
